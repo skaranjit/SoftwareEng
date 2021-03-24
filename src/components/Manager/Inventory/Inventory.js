@@ -11,12 +11,15 @@ import {
 import {
   addInventory,
   UpdateInventoryItemQuantity,
+  DeleteInvItem,
+  UpdateInventoryItemPrice,
 } from "../../../actions/InventoryAction";
-import { Icon } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
-import { UpdateInventoryItemPrice } from "./../../../actions/InventoryAction";
+
 class Inventory extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +37,12 @@ class Inventory extends Component {
     } else if (tochange == "quantity") {
       this.props.updateQuantity(key, obj, text);
     }
+    console.log(this.props.inventItem);
+    this.setState({ x: this.props.inventItem });
+  };
+  deleteITEM = (key) => {
+    this.props.deleteItem(key);
+    console.log(key);
     console.log(this.props.inventItem);
     this.setState({ x: this.props.inventItem });
   };
@@ -176,7 +185,7 @@ class Inventory extends Component {
                   marginVertical: 10,
                   width: "12%",
                 }}
-                value={item.item[1].price.toFixed(2).toString()}
+                value={item.item[1].price.toString()}
                 onChangeText={(price) => {
                   this.changeText(item.item[0], item.item[1], price, "price");
                 }}
@@ -221,14 +230,11 @@ class Inventory extends Component {
                 {item.item[1].totalPrice().toFixed(2)}
               </Text>
               <Button
-                icon={<Icon name="delete" size={15} color="white" />}
-                style={{
-                  marginLeft: 10,
-                  marginVertical: 10,
-                  width: "10%",
-                }}
+                MaterialCommunityIcons="delete-circle-outline"
+                size={40}
+                color="black"
                 title="delete"
-                onPress={console.log("asd")}
+                onPress={() => this.deleteITEM(item.item[0])}
               />
             </View>
           )}
@@ -260,6 +266,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(UpdateInventoryItemPrice(key, obj, price)),
     updateQuantity: (key, obj, quan) =>
       dispatch(UpdateInventoryItemQuantity(key, obj, quan)),
+    deleteItem: (key) => dispatch(DeleteInvItem(key)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Inventory);

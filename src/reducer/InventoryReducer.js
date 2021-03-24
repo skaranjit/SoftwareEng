@@ -5,6 +5,7 @@ import {
   DELETE_INVENTORY_ITEM,
 } from "./../actions/types";
 import InventItem from "../class/InventItem";
+import lodash from "lodash";
 //Mock Data
 const a = new InventItem("asda", 12, 2);
 const b = new InventItem("Basdas", 24.7, 9);
@@ -49,9 +50,9 @@ const inventReducer = (state = initialState, action) => {
 
     case DELETE_INVENTORY_ITEM:
       return {
-        ...state,
-        InventoryList: state.InventoryList.filter((item) => item.key != key),
+        InventoryList: lodash.omit(state.InventoryList, action.payload),
       };
+
     default:
       return state;
   }

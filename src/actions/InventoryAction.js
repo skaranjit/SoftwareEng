@@ -24,7 +24,7 @@ export const UpdateInventoryItemQuantity = (key, obj, quan) => ({
   quan: quan,
 });
 
-export const DeleteInvItem = (key) => ({
+export const DeleteInvItem = (payload) => ({
   type: DELETE_INVENTORY_ITEM,
-  key: key,
+  payload: payload,
 });
