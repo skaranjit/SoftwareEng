@@ -12,6 +12,7 @@ import PaymentPage from "../screens/CUST/PaymentPage";
 import EmpView from "../screens/EMP/EmpView";
 
 import EmpMainNav from "./EmpMainNavigator";
+import Table from "../components/Table/table";
 
 const Stack = createStackNavigator();
 
@@ -36,7 +37,7 @@ class MainRouter extends Component {
           <Stack.Screen name="Register" component={RegisterPage} />
           <Stack.Screen name="Payment" component={PaymentPage} />
           <Stack.Screen name="Manager" component={EmpMainNav} />
-          <Stack.Screen name="Emp" component={EmpView} />
+          <Stack.Screen name="Table" component={Table} />
         </Stack.Navigator>
       </NavigationContainer>
     );

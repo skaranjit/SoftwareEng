@@ -229,8 +229,8 @@ class Inventory extends Component {
               >
                 {item.item[1].totalPrice().toFixed(2)}
               </Text>
-              <Button
-                MaterialCommunityIcons="delete-circle-outline"
+              <MaterialCommunityIcons
+              name="delete-circle-outline"
                 size={40}
                 color="black"
                 title="delete"

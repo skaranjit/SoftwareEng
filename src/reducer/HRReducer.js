@@ -14,6 +14,7 @@ const a = new Employee(
   "Server",
   12
 );
+a.setCode(1111);
 const b = new Employee(
   "Ayush",
   "asd",
@@ -22,6 +23,7 @@ const b = new Employee(
   "Manager",
   25
 );
+b.setCode(2222);
 const c = new Employee(
   "Admin",
   "Admin",
@@ -30,9 +32,9 @@ const c = new Employee(
   "Server",
   12
 );
-c.setAdminCode(1234);
+c.setAdminCode(123456);
 c.ClockIn();
-
+c.setCode(3333)
 const d = new Employee(
   "Ankur",
   "asdaaasd",
@@ -41,6 +43,7 @@ const d = new Employee(
   "Server",
   12
 );
+d.setCode(4444);
 const e = new Employee(
   "Nabin",
   "Kale",
@@ -49,6 +52,7 @@ const e = new Employee(
   "Server",
   12
 );
+e.setCode(5555);
 const f = new Employee(
   "Manjil",
   "Panta",
@@ -57,6 +61,7 @@ const f = new Employee(
   "Server",
   12
 );
+f.setCode(2222)
 
 c.ClockOut();
 

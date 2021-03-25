@@ -1,7 +1,12 @@
+import { isLength } from "lodash";
+import { Alert } from "react-native";
 import Person from "./Person";
 
 export default class Employee extends Person {
-  static #Id = 91000;
+  static #Id = 9100;
+  #AdminCode = null;
+  static #CodeList = [1234] 
+  #Code = 1234; //Each employee have a unique code. 
   constructor(FName, LName, PhoneNumber, SSN, Role, Salary) {
     super(FName, LName, PhoneNumber);
     this.SSN = SSN;
@@ -9,7 +14,6 @@ export default class Employee extends Person {
     this.Salary = Salary;
     this.clockIn = "0";
     this.clockOut = "0";
-    this.AdminCode = null;
     this.isAdmin = false;
     Employee.#Id++;
     this.Id = Employee.#Id;
@@ -49,8 +53,40 @@ export default class Employee extends Person {
     return Math.floor(diff / 1000 / 60);
   }
   setAdminCode(x) {
-    this.isAdmin = true;
-    this.AdminCode = x;
+    if(x>100000){
+      this.isAdmin = true;
+    this.#AdminCode = x;
+    }
+    else{
+      console.log("Failed!. Not the correct number")
+      alert("To Create Admin Code The number needs to be 6 at leaset")
+    }
+    
+  }
+  getAdminCode(x){
+    return this.#AdminCode;
+  }
+  getCode(x){
+    return this.#Code.toString();
+  }
+  setCode(x){
+    if(x>999 & x < 10000){
+
+    
+    if(Employee.#CodeList.indexOf(x) == -1){
+      this.#Code = x;
+
+    }
+    else if(Employee.#CodeList.indexOf(x) > -1  ){
+      this.#Code = this.Id;
+      alert("Code already in used. So code has been set to :"+this.#Code)
+    }
+    Employee.#CodeList.push(this.#Code);
+      
+    }
+    else {
+      alert("Needs to four digit!")
+    }
   }
   closeOut() {
     this.clockIn = null;
