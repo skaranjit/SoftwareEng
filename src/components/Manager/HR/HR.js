@@ -9,8 +9,12 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
-
+import Modal from "react-native-modal";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { addEmp, updateEmp, delEmp } from "./../../../actions/HRAction";
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
 class HR extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +23,8 @@ class HR extends Component {
       x: this.props.EmpItem,
     };
   }
+  //////////////////////Functions////////////////////////////
+
   changeText = (key, obj, text, tochange) => {
     if (text == null) {
       text = 0;
@@ -41,6 +47,29 @@ class HR extends Component {
       }}
     />
   );
+  openModal = () => {
+    this.setState({
+      isModalVisible: true,
+    });
+  };
+  AddInventoryItem = (name, price, quantity) => {
+    this.props.addInventoryItem(name, price, quantity);
+    this.setState({
+      isModalVisible: !this.state.isModalVisible,
+    });
+    this.setState({
+      nm: "",
+      qn: 0,
+      pr: 0,
+    });
+    this.setState({ x: this.props.inventItem });
+  };
+  closeModal = () => {
+    this.setState({
+      isModalVisible: false,
+    });
+  };
+  //////////////////////////////////////////////////////////
 
   render() {
     console.log(this.props.EmpItem);
@@ -122,7 +151,246 @@ class HR extends Component {
           >
             Total Hrs:
           </Text>
+          <MaterialIcons
+            name="add-circle"
+            size={40}
+            style={{ marginLeft: 20 }}
+            color="black"
+            title="delete"
+            onPress={() => this.openModal()}
+          />
         </View>
+        <Modal
+          isVisible={this.state.isModalVisible}
+          style={{
+            backgroundColor: "white",
+            padding: 80,
+            flex: 1,
+            borderRadius: 10,
+            justifyContent: "space-around",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+          animationIn="slideInUp"
+          animationOut="slideOutDown"
+          onBackdropPress={() => this.closeModal()}
+        >
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+
+              justifyContent: "space-around",
+              alignContent: "flex-end",
+            }}
+          >
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 20,
+                textAlign: "center",
+              }}
+            >
+              FirstName :
+            </Text>
+            <TextInput
+              style={{
+                flex: 3,
+                borderColor: "black",
+                fontSize: 20,
+                color: "black",
+                borderWidth: 2,
+                width: "30%",
+                height: 35,
+              }}
+              borderColor="black"
+              placeholder="Name"
+              onChangeText={(name) => {
+                this.setState({ nm: name });
+              }}
+            />
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 20,
+                textAlign: "center",
+              }}
+            >
+              LastName :
+            </Text>
+            <TextInput
+              style={{
+                flex: 3,
+                borderColor: "black",
+                fontSize: 20,
+                color: "black",
+                borderWidth: 2,
+                width: "30%",
+                height: 35,
+              }}
+              borderColor="black"
+              placeholder="Name"
+              onChangeText={(name) => {
+                this.setState({ nm: name });
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+
+              justifyContent: "space-around",
+              alignContent: "flex-end",
+            }}
+          >
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 20,
+                textAlign: "center",
+              }}
+            >
+              Phone :
+            </Text>
+            <TextInput
+              style={{
+                flex: 3,
+                borderColor: "black",
+                fontSize: 20,
+                color: "black",
+                borderWidth: 2,
+                width: "30%",
+                height: 35,
+              }}
+              borderColor="black"
+              placeholder="Name"
+              onChangeText={(name) => {
+                this.setState({ nm: name });
+              }}
+            />
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 20,
+                textAlign: "center",
+              }}
+            >
+              SSN :
+            </Text>
+            <TextInput
+              style={{
+                flex: 3,
+                borderColor: "black",
+                fontSize: 20,
+                color: "black",
+                borderWidth: 2,
+                marginRight: 10,
+                width: "30%",
+                height: 35,
+              }}
+              borderColor="black"
+              placeholder="Name"
+              onChangeText={(name) => {
+                this.setState({ nm: name });
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-around",
+              alignContent: "flex-end",
+            }}
+          >
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 20,
+                textAlign: "center",
+              }}
+            >
+              Role :
+            </Text>
+            <TextInput
+              style={{
+                flex: 3,
+                borderColor: "black",
+                fontSize: 20,
+                color: "black",
+                borderWidth: 2,
+                width: "30%",
+                height: 35,
+              }}
+              borderColor="black"
+              placeholder="Name"
+              onChangeText={(name) => {
+                this.setState({ nm: name });
+              }}
+            />
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 20,
+                textAlign: "center",
+              }}
+            >
+              Salary :
+            </Text>
+            <TextInput
+              style={{
+                flex: 3,
+                borderColor: "black",
+                fontSize: 20,
+                color: "black",
+                borderWidth: 2,
+                width: "30%",
+                height: 35,
+              }}
+              borderColor="black"
+              placeholder="Name"
+              onChangeText={(name) => {
+                this.setState({ nm: name });
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+
+              justifyContent: "space-around",
+              alignContent: "flex-end",
+            }}
+          >
+            <MaterialIcons
+              name="add-circle"
+              size={40}
+              style={{ marginLeft: 120, marginVertical: 10, marginRight: 20 }}
+              color="black"
+              title="delete"
+              onPress={() => {
+                console.log(this.state.pr);
+                console.log(this.state.qn);
+                console.log(this.state.nm);
+                this.AddInventoryItem(
+                  this.state.nm,
+                  this.state.pr,
+                  this.state.qn
+                );
+              }}
+            />
+            <MaterialIcons
+              name="cancel"
+              size={40}
+              style={{ marginLeft: 20, marginVertical: 10 }}
+              color="black"
+              title="delete"
+              onPress={() => this.closeModal()}
+            />
+          </View>
+        </Modal>
 
         <FlatList
           horizontal={true}
