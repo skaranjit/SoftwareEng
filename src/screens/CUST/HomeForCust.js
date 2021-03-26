@@ -12,9 +12,7 @@ export default class CustMainPage extends Component {
       <View style={styles.container}>
         <View style={styles.btnGroupLoginorRegister}>
           <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate("Login", { name: "Suman" })
-            }
+            onPress={() => this.props.navigation.navigate("Login")}
           >
             <Text style={styles.largeTxt}>Login for VIP</Text>
           </TouchableOpacity>

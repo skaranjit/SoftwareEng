@@ -3,6 +3,7 @@ import {
   UPDATE_INVENTORY_ITEM_PRICE,
   UPDATE_INVENTORY_ITEM_QUANTITY,
   DELETE_INVENTORY_ITEM,
+  UPDATE_INVENTORY_ITEM_USED,
 } from "./../actions/types";
 import InventItem from "../class/InventItem";
 import lodash from "lodash";
@@ -14,7 +15,7 @@ const d = new InventItem("qweqz", 24.7, 9);
 const e = new InventItem("lsdas", 24.7, 9);
 const f = new InventItem("hjgfj", 24.7, 9);
 
-const initialState = {
+let initialState = {
   InventoryList: {
     [a.Id]: a,
     [b.Id]: b,
@@ -28,24 +29,36 @@ const initialState = {
 const inventReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INVENTORY:
-      return {
-        ...state,
-        InventoryList: state.InventoryList.assign(data),
-      };
+      const newInventItem = new InventItem(
+        action.name,
+        parseInt(action.price),
+        parseInt(action.quantity)
+      );
+      console.log(newInventItem.Id);
+      console.log(state.InventoryList);
+      state.InventoryList = Object.assign(state.InventoryList, {
+        [newInventItem.Id]: newInventItem,
+      });
+      return state;
     case UPDATE_INVENTORY_ITEM_PRICE:
       //state.InventoryList.forEach((item) => console.log(item.obj.price));
       action.obj.price = action.price;
       return {
         ...state,
-        [action.key]: action.obj,
-        InventoryList: state.InventoryList,
+        [action.obj.Id]: action.obj,
       };
     case UPDATE_INVENTORY_ITEM_QUANTITY:
       action.obj.quantity = action.quan;
       return {
         ...state,
         [action.key]: action.obj,
-        InventoryList: state.InventoryList,
+      };
+    case UPDATE_INVENTORY_ITEM_USED:
+      // action.obj.usedPub = action.newUsed;
+      action.obj.useItem(action.newUsed);
+      return {
+        ...state,
+        [action.key]: action.obj,
       };
 
     case DELETE_INVENTORY_ITEM:

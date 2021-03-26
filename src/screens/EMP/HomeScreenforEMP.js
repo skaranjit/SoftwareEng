@@ -10,14 +10,13 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import _, { isEqual } from "lodash"
+import _, { isEqual } from "lodash";
 class HomeScreenforEMP extends Component {
   constructor(props) {
     super(props);
     this.state = {
       resultTxt: "",
     };
-   
   }
 
   buttonPressed(text) {
@@ -37,43 +36,41 @@ class HomeScreenforEMP extends Component {
     res = this.state.resultTxt;
     console.log(res);
     if (this.state.resultTxt.length == 4) {
-      console.log(this.props.EmpItem)
-      const k =_.findKey(this.props.EmpItem,function(o) {
-        
-        if(o.getCode() == res){
+      console.log(this.props.EmpItem);
+      const k = _.findKey(this.props.EmpItem, function (o) {
+        if (o.getCode() == res) {
           return o;
-        } });
-        //Data for who logged in :
-        const objA= _.get(this.props.EmpItem,k)
+        }
+      });
+      //Data for who logged in :
+      if (k > 0) {
+        const objA = _.get(this.props.EmpItem, k);
         const NameA = objA.FName + " " + objA.LName;
 
-        console.log(NameA)
-        if(k >0){
+        console.log(NameA);
+
         return this.props.navigation.navigate("Table");
+      } else {
+        alert("Incorrect Password!");
       }
-      else{
-        alert("Incorrect Password!")
-      }
-      
     } else if (this.state.resultTxt.length == 6) {
-      const k =_.findKey(this.props.EmpItem,function(o) {
-        
-        if(o.getAdminCode() == res){
+      const k = _.findKey(this.props.EmpItem, function (o) {
+        if (o.getAdminCode() == res) {
           return o;
-        } });
-        const objA= _.get(this.props.EmpItem,k)
+        }
+      });
+      if (k > 0) {
+        const objA = _.get(this.props.EmpItem, k);
         const NameA = objA.FName + " " + objA.LName;
 
-        console.log(NameA)
-      if(k >0){
+        console.log(NameA);
+
         return this.props.navigation.navigate("Manager");
+      } else {
+        alert("Incorrect Password!");
       }
-      else{
-        alert("Incorrect Password!")
-      }
-      
-    }else {
-      alert("Please check the code and try again!")
+    } else {
+      alert("Please check the code and try again!");
     }
   }
   loadView(vw) {}
@@ -92,7 +89,7 @@ class HomeScreenforEMP extends Component {
           row.push(
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => this.checkCode() }
+              onPress={() => this.checkCode()}
             >
               <Text style={styles.btnTxt}>GO</Text>
             </TouchableOpacity>
@@ -184,4 +181,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default  connect(mapStateToProps)(HomeScreenforEMP);
+export default connect(mapStateToProps)(HomeScreenforEMP);
