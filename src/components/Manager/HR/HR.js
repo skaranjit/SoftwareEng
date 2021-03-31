@@ -1,18 +1,16 @@
 import React, { Component } from "react";
-import {
-  FlatList,
-  SegmentedControlIOS,
-  StyleSheet,
-  Text,
-  TextPropTypes,
-  View,
-} from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import Modal from "react-native-modal";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { addEmp, updateEmp, delEmp } from "./../../../actions/HRAction";
-
+import { AddEmp, updateEmp, delEmp, DelEmp } from "./../../../actions/HRAction";
+import Employee from "./../../../class/Employee";
+import styles from "./../../../styles/styles";
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 class HR extends Component {
@@ -21,6 +19,15 @@ class HR extends Component {
     this.state = {
       tableHead: ["Name", "Price", "Quantity"],
       x: this.props.EmpItem,
+      Fname: "",
+      Lname: "",
+      phone: "",
+      ssn: "",
+      role: "",
+      salary: 0,
+      isAddModal: false,
+      isSetModal: false,
+      code: "",
     };
   }
   //////////////////////Functions////////////////////////////
@@ -47,43 +54,57 @@ class HR extends Component {
       }}
     />
   );
-  openModal = () => {
+
+  AddNewEmp = (Fname, Lname, phone, ssn, role, salary) => {
+    if (
+      Fname == "" ||
+      Lname == "" ||
+      phone == "" ||
+      ssn == "" ||
+      role == "" ||
+      salary == 0
+    ) {
+      alert("Please enter the information");
+    } else {
+      const empObj = new Employee(Fname, Lname, phone, ssn, role, salary);
+      this.props.add(empObj);
+      this.setState({
+        Fname: "",
+        Lname: "",
+        phone: 0,
+        ssn: "",
+        role: "",
+        salary: 0,
+        isAddModal: false,
+      });
+      this.setState({ x: this.props.EmpItem });
+    }
+    console.log(this.state.x);
+  };
+  DeleteEmp = (key) => {
+    this.props.del(key);
     this.setState({
-      isModalVisible: true,
+      x: this.props.EmpItem,
     });
   };
-  AddInventoryItem = (name, price, quantity) => {
-    this.props.addInventoryItem(name, price, quantity);
-    this.setState({
-      isModalVisible: !this.state.isModalVisible,
-    });
-    this.setState({
-      nm: "",
-      qn: 0,
-      pr: 0,
-    });
-    this.setState({ x: this.props.inventItem });
-  };
-  closeModal = () => {
-    this.setState({
-      isModalVisible: false,
-    });
+  setCode = (text) => {
+    if (text == "") {
+    }
   };
   //////////////////////////////////////////////////////////
 
   render() {
-    console.log(this.props.EmpItem);
     const data = Object.entries(this.state.x);
 
     return (
       <ScrollView
-        automaticallyAdjustContentInsets={false}
+        automaticallyAdjustContentInsets={true}
         pagingEnabled={true}
         scrollEnabled={true}
         bounces={true}
-        decelerationRate={0}
-        snapToInterval={200} //your element width
-        snapToAlignment={"center"}
+        decelerationRate={20}
+        snapToInterval={20} //your element width
+        snapToAlignment={"start"}
       >
         <View
           style={{
@@ -130,38 +151,18 @@ class HR extends Component {
           >
             Clock-Out
           </Text>
-          <Text
-            style={{
-              fontSize: 18,
-              textAlign: "justify",
-              marginVertical: 10,
 
-              width: "8%",
-            }}
-          >
-            Admin
-          </Text>
-          <Text
-            style={{
-              fontSize: 18,
-              textAlign: "justify",
-              marginVertical: 10,
-              width: "15%",
-            }}
-          >
-            Total Hrs:
-          </Text>
           <MaterialIcons
             name="add-circle"
             size={40}
             style={{ marginLeft: 20 }}
             color="black"
             title="delete"
-            onPress={() => this.openModal()}
+            onPress={() => this.setState({ isAddModal: true })}
           />
         </View>
         <Modal
-          isVisible={this.state.isModalVisible}
+          isVisible={this.state.isAddModal}
           style={{
             backgroundColor: "white",
             padding: 80,
@@ -173,7 +174,7 @@ class HR extends Component {
           }}
           animationIn="slideInUp"
           animationOut="slideOutDown"
-          onBackdropPress={() => this.closeModal()}
+          onBackdropPress={() => this.setState({ isAddModal: false })}
         >
           <View
             style={{
@@ -204,9 +205,8 @@ class HR extends Component {
                 height: 35,
               }}
               borderColor="black"
-              placeholder="Name"
               onChangeText={(name) => {
-                this.setState({ nm: name });
+                this.setState({ Fname: name });
               }}
             />
             <Text
@@ -229,9 +229,8 @@ class HR extends Component {
                 height: 35,
               }}
               borderColor="black"
-              placeholder="Name"
               onChangeText={(name) => {
-                this.setState({ nm: name });
+                this.setState({ Lname: name });
               }}
             />
           </View>
@@ -264,9 +263,8 @@ class HR extends Component {
                 height: 35,
               }}
               borderColor="black"
-              placeholder="Name"
-              onChangeText={(name) => {
-                this.setState({ nm: name });
+              onChangeText={(phone) => {
+                this.setState({ phone: phone });
               }}
             />
             <Text
@@ -290,9 +288,8 @@ class HR extends Component {
                 height: 35,
               }}
               borderColor="black"
-              placeholder="Name"
-              onChangeText={(name) => {
-                this.setState({ nm: name });
+              onChangeText={(ssn) => {
+                this.setState({ ssn: ssn });
               }}
             />
           </View>
@@ -324,9 +321,8 @@ class HR extends Component {
                 height: 35,
               }}
               borderColor="black"
-              placeholder="Name"
-              onChangeText={(name) => {
-                this.setState({ nm: name });
+              onChangeText={(role) => {
+                this.setState({ role: role });
               }}
             />
             <Text
@@ -349,9 +345,8 @@ class HR extends Component {
                 height: 35,
               }}
               borderColor="black"
-              placeholder="Name"
-              onChangeText={(name) => {
-                this.setState({ nm: name });
+              onChangeText={(salary) => {
+                this.setState({ salary: salary });
               }}
             />
           </View>
@@ -371,13 +366,13 @@ class HR extends Component {
               color="black"
               title="delete"
               onPress={() => {
-                console.log(this.state.pr);
-                console.log(this.state.qn);
-                console.log(this.state.nm);
-                this.AddInventoryItem(
-                  this.state.nm,
-                  this.state.pr,
-                  this.state.qn
+                this.AddNewEmp(
+                  this.state.Fname,
+                  this.state.Lname,
+                  this.state.phone,
+                  this.state.ssn,
+                  this.state.role,
+                  this.state.salary
                 );
               }}
             />
@@ -387,13 +382,12 @@ class HR extends Component {
               style={{ marginLeft: 20, marginVertical: 10 }}
               color="black"
               title="delete"
-              onPress={() => this.closeModal()}
+              onPress={() => this.setState({ isAddModal: false })}
             />
           </View>
         </Modal>
 
         <FlatList
-          horizontal={true}
           snapToAlignment={"start"}
           data={data}
           horizontal={false}
@@ -404,8 +398,8 @@ class HR extends Component {
               style={{
                 flex: 1,
                 flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "stretch",
+                justifyContent: "center",
+                alignItems: "center",
                 flexWrap: "wrap",
               }}
             >
@@ -465,28 +459,252 @@ class HR extends Component {
                 keyboardType="numeric"
               />
 
-              <Text
+              <MaterialIcons
+                name="delete"
+                size={40}
+                style={{ margin: 10 }}
+                onPress={() => this.DeleteEmp(item.item[0])}
+              />
+              <MaterialIcons
+                name="info"
+                size={40}
+                style={{ margin: 10 }}
+                onPress={() => this.DeleteEmp(item.item[0])}
+              />
+              <View style={{ flexDirection: "column", flex: 1 }}>
+                <TouchableOpacity
+                  style={styles.btn2}
+                  onPress={() => this.setState({ isSetModal: true })}
+                >
+                  <Text style={styles.btnTxt2}>Set Code</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.btn2} onPress={() => {}}>
+                  <Text style={styles.btnTxt2}>Set Admin</Text>
+                </TouchableOpacity>
+              </View>
+              {/* For Code Set */}
+              <Modal
+                isVisible={this.state.isSetModal}
                 style={{
-                  fontSize: 16,
-                  textAlign: "justify",
-                  marginLeft: 10,
-                  marginVertical: 10,
-                  width: "8%",
+                  backgroundColor: "white",
+                  top: "22%",
+                  left: "58%",
+                  flex: 1,
+                  padding: 20,
+                  borderRadius: 10,
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  maxHeight: "20%",
+                  maxWidth: "20%",
                 }}
+                animationIn="slideInUp"
+                animationOut="slideOutDown"
+                onBackdropPress={() => this.setState({ isSetModal: false })}
               >
-                {item.item[1].isAdmin == false ? "No" : "Yes"}
-              </Text>
-              <Text
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "column",
+
+                    justifyContent: "space-around",
+                    alignContent: "stretch",
+                  }}
+                >
+                  <Text>Enter Code:</Text>
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      borderColor: "black",
+                      fontSize: 20,
+                      color: "black",
+                      borderWidth: 2,
+                      minWidth: "90%",
+                      maxHeight: "50%",
+                    }}
+                    borderColor="black"
+                    onChangeText={(code) => {
+                      this.setState({ code: code });
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    alignContent: "center",
+                  }}
+                >
+                  <MaterialIcons
+                    name="check-circle-outline"
+                    size={40}
+                    style={{
+                      marginVertical: 10,
+                    }}
+                    onPress={() => {
+                      this.setCode(this.state.code);
+                    }}
+                  />
+                  <MaterialIcons
+                    name="cancel"
+                    size={40}
+                    style={{ marginLeft: 20, marginVertical: 10 }}
+                    color="black"
+                    title="delete"
+                    onPress={() => this.setState({ isSetModal: false })}
+                  />
+                </View>
+              </Modal>
+              {/* For Admin Code Set */}
+              <Modal
+                isVisible={this.state.isSetModal}
                 style={{
-                  fontSize: 16,
-                  textAlign: "justify",
-                  marginLeft: 10,
-                  marginVertical: 10,
-                  width: "10%",
+                  backgroundColor: "white",
+                  top: "22%",
+                  left: "58%",
+                  flex: 1,
+                  padding: 20,
+                  borderRadius: 10,
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  maxHeight: "20%",
+                  maxWidth: "20%",
                 }}
+                animationIn="slideInUp"
+                animationOut="slideOutDown"
+                onBackdropPress={() => this.setState({ isSetModal: false })}
               >
-                {item.item[1].CalcTotalHours()}
-              </Text>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "column",
+
+                    justifyContent: "space-around",
+                    alignContent: "stretch",
+                  }}
+                >
+                  <Text>Enter Code:</Text>
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      borderColor: "black",
+                      fontSize: 20,
+                      color: "black",
+                      borderWidth: 2,
+                      minWidth: "90%",
+                      maxHeight: "50%",
+                    }}
+                    borderColor="black"
+                    onChangeText={(code) => {
+                      this.setState({ code: code });
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    alignContent: "center",
+                  }}
+                >
+                  <MaterialIcons
+                    name="check-circle-outline"
+                    size={40}
+                    style={{
+                      marginVertical: 10,
+                    }}
+                    onPress={() => {
+                      this.setCode(this.state.code);
+                    }}
+                  />
+                  <MaterialIcons
+                    name="cancel"
+                    size={40}
+                    style={{ marginLeft: 20, marginVertical: 10 }}
+                    color="black"
+                    title="delete"
+                    onPress={() => this.setState({ isSetModal: false })}
+                  />
+                </View>
+              </Modal>
+              {/* For Info modal  */}
+              <Modal
+                isVisible={this.state.isSetModal}
+                style={{
+                  backgroundColor: "white",
+                  top: "22%",
+                  left: "58%",
+                  flex: 1,
+                  padding: 20,
+                  borderRadius: 10,
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  maxHeight: "20%",
+                  maxWidth: "20%",
+                }}
+                animationIn="slideInUp"
+                animationOut="slideOutDown"
+                onBackdropPress={() => this.setState({ isSetModal: false })}
+              >
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "column",
+
+                    justifyContent: "space-around",
+                    alignContent: "stretch",
+                  }}
+                >
+                  <Text>Enter Code:</Text>
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      borderColor: "black",
+                      fontSize: 20,
+                      color: "black",
+                      borderWidth: 2,
+                      minWidth: "90%",
+                      maxHeight: "50%",
+                    }}
+                    borderColor="black"
+                    onChangeText={(code) => {
+                      this.setState({ code: code });
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    alignContent: "center",
+                  }}
+                >
+                  <MaterialIcons
+                    name="check-circle-outline"
+                    size={40}
+                    style={{
+                      marginVertical: 10,
+                    }}
+                    onPress={() => {
+                      this.setCode(this.state.code);
+                    }}
+                  />
+                  <MaterialIcons
+                    name="cancel"
+                    size={40}
+                    style={{ marginLeft: 20, marginVertical: 10 }}
+                    color="black"
+                    title="delete"
+                    onPress={() => this.setState({ isSetModal: false })}
+                  />
+                </View>
+              </Modal>
             </View>
           )}
         />
@@ -502,16 +720,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    add: (empObj) => dispatch(AddEmp(empObj)),
+    del: (key) => dispatch(DelEmp(key)),
+  };
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 export default connect(mapStateToProps, mapDispatchToProps)(HR);

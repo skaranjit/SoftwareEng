@@ -5,16 +5,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "#fff",
     justifyContent: "center",
+    alignSelf: "stretch",
   },
   largeTxt: {
-    fontSize: 85,
+    fontSize: 75,
     padding: 20,
+    textAlign: "center",
     color: "green",
   },
   midTxt: {
-    padding: 20,
+    //padding: 20,
     fontSize: 40,
     color: "blue",
+
+    textAlign: "center",
   },
   MTxt: {
     padding: 10,
@@ -30,7 +34,13 @@ const styles = StyleSheet.create({
   },
   btnGroupLoginorRegister: {
     flexDirection: "row",
-    alignContent: "stretch",
+
+    top: 60,
+    bottom: 20,
+    right: 20,
+    left: 20,
+    justifyContent: "center",
+    alignContent: "center",
   },
   formGroup: {
     margin: 50,
@@ -43,6 +53,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
+    alignContent: "stretch",
+    alignItems: "stretch",
   },
   btnBox: {
     flexGrow: 1,
@@ -51,11 +63,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   btn: {
-    flex: 1,
+    flex: 20,
     borderWidth: 2,
-    shadowOpacity: 1,
-    shadowRadius: 15,
-    maxWidth: 200,
+    minWidth: 200,
     maxHeight: 200,
     borderRadius: 100,
     alignContent: "center",
@@ -64,6 +74,21 @@ const styles = StyleSheet.create({
     marginLeft: 80,
     margin: 20,
     backgroundColor: "#504B4A",
+  },
+  btn2: {
+    flex: 1,
+    borderWidth: 2,
+    shadowOpacity: 1,
+    shadowRadius: 15,
+    maxWidth: 300,
+    maxHeight: 200,
+    borderRadius: 100,
+    alignContent: "center",
+    justifyContent: "space-around",
+    marginRight: 80,
+    marginLeft: 80,
+    margin: 20,
+    backgroundColor: "#EFFBFB",
   },
   resultTxtBox: {
     flex: 0.1,
@@ -75,6 +100,11 @@ const styles = StyleSheet.create({
   },
   btnTxt: {
     fontSize: 35,
+
+    textAlign: "center",
+  },
+  btnTxt2: {
+    fontSize: 20,
 
     textAlign: "center",
   },

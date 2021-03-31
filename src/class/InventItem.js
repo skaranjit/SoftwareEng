@@ -10,14 +10,13 @@ export default class InventItem {
     this.quantity = quantity;
     InventItem.#id++;
     this.Id = InventItem.#id;
-    this.usedPub = 0;
   }
 
   getUsed() {
     return this.#used;
   }
   useItem(quan) {
-    if (quan > this.quantity) {
+    if (quan > this.quantity || quan < -1) {
       alert("Check the number!");
     } else if (quan > -1) {
       this.#used = quan;

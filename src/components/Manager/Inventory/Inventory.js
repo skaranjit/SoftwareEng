@@ -46,14 +46,13 @@ class Inventory extends Component {
     } else if (tochange == "quantity") {
       this.props.updateQuantity(key, obj, text);
     } else if (tochange == "used") {
-      this.props.useItems(key, obj, parseInt(text));
+      this.props.useItems(key, obj, text);
     }
     this.setState({ x: this.props.inventItem });
   };
   deleteITEM = (key) => {
     this.props.deleteItem(key);
-    console.log(key);
-    console.log(this.props.inventItem);
+
     this.setState({ x: this.props.inventItem });
   };
   ItemSeprator = () => (
