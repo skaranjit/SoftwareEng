@@ -16,14 +16,13 @@ export default class CustMainPage extends Component {
           >
             <Text style={styles.largeTxt}>Login for VIP</Text>
           </TouchableOpacity>
-          <Text style={{ color: "orange", fontSize: 100 }}>{" | "}</Text>
+          <Text style={{ color: "orange", fontSize: 90 }}>{" | "}</Text>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate("Register")}
           >
             <Text style={styles.largeTxt}>Register</Text>
           </TouchableOpacity>
         </View>
-
         <Text style={styles.largeTxt}>{"------------------------"}</Text>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate("Payment")}

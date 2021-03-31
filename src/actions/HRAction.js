@@ -1,18 +1,18 @@
 import { ADD_EMPLOYEE, DELETE_EMPLOYEE, UPDATE_EMPLOYEE } from "./types";
 
-export const addEmp = (empObj) => {
-  type: ADD_EMPLOYEE;
-  data: empObj;
-};
+export const AddEmp = (empObj) => ({
+  type: ADD_EMPLOYEE,
+  empObj: empObj,
+});
 
-export const delEmp = (key) => {
-  type: DELETE_EMPLOYEE;
-  key: key;
-};
+export const DelEmp = (key) => ({
+  type: DELETE_EMPLOYEE,
+  key: key,
+});
 
-export const updateEmp = (key, obj, text) => {
-  type: UPDATE_EMPLOYEE;
-  key: key;
-  obj: obj;
-  text: text;
-};
+export const UpdateEmp = (key, obj, text) => ({
+  type: UPDATE_EMPLOYEE,
+  key: key,
+  obj: obj,
+  text: text,
+});

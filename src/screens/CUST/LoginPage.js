@@ -30,7 +30,7 @@ export default class LoginPage extends Component {
       return false;
     }
   }
-  loadView(vw) {}
+
   render() {
     console.log(this.props);
     let rows = [];
@@ -52,7 +52,6 @@ export default class LoginPage extends Component {
               <Text style={styles.btnTxt}>GO</Text>
             </TouchableOpacity>
           );
-          //<ChangeScreen btnName="Go" />);
         } else {
           row.push(
             <TouchableOpacity

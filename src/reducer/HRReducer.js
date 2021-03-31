@@ -5,6 +5,7 @@ import {
 } from "./../actions/types";
 import Employee from "../class/Employee";
 import { TouchableWithoutFeedbackComponent } from "react-native";
+import lodash from "lodash";
 //Mock Data
 const a = new Employee(
   "Suman",
@@ -34,7 +35,7 @@ const c = new Employee(
 );
 c.setAdminCode(123456);
 c.ClockIn();
-c.setCode(3333)
+c.setCode(3333);
 const d = new Employee(
   "Ankur",
   "asdaaasd",
@@ -61,7 +62,7 @@ const f = new Employee(
   "Server",
   12
 );
-f.setCode(2222)
+f.setCode(2222);
 
 c.ClockOut();
 
@@ -79,24 +80,19 @@ const initialState = {
 const EmpReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_EMPLOYEE:
-      return {
-        ...state,
-        EmpList: state.EmpList.assign(data),
-      };
+      state.EmpList = Object.assign(state.EmpList, {
+        [action.empObj.Id]: action.empObj,
+      });
+      return state;
+
     case UPDATE_EMPLOYEE:
-      //state.InventoryList.forEach((item) => console.log(item.obj.price));
-      action.obj.price = action.price;
       return {
         ...state,
         [action.key]: action.obj,
-        InventoryList: state.InventoryList,
       };
     case DELETE_EMPLOYEE:
-      action.obj.quantity = action.quan;
       return {
-        ...state,
-        [action.key]: action.obj,
-        InventoryList: state.InventoryList,
+        EmpList: lodash.omit(state.EmpList, action.key),
       };
 
     default:

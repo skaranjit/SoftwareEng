@@ -34,8 +34,7 @@ const inventReducer = (state = initialState, action) => {
         parseInt(action.price),
         parseInt(action.quantity)
       );
-      console.log(newInventItem.Id);
-      console.log(state.InventoryList);
+
       state.InventoryList = Object.assign(state.InventoryList, {
         [newInventItem.Id]: newInventItem,
       });
@@ -54,7 +53,6 @@ const inventReducer = (state = initialState, action) => {
         [action.key]: action.obj,
       };
     case UPDATE_INVENTORY_ITEM_USED:
-      // action.obj.usedPub = action.newUsed;
       action.obj.useItem(action.newUsed);
       return {
         ...state,

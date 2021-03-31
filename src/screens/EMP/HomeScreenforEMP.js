@@ -1,16 +1,9 @@
-import React, { useRef, numeric, Component } from "react";
-import { Alert, StyleSheet } from "react-native";
-import {
-  View,
-  Text,
-  TextInput,
-  SafeAreaView,
-  Button,
-  TouchableOpacityBase,
-} from "react-native";
+import React, { Component } from "react";
+import { View, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import _, { isEqual } from "lodash";
+import styles from "./../../styles/styles";
+import lodash from "lodash";
 class HomeScreenforEMP extends Component {
   constructor(props) {
     super(props);
@@ -37,14 +30,14 @@ class HomeScreenforEMP extends Component {
     console.log(res);
     if (this.state.resultTxt.length == 4) {
       console.log(this.props.EmpItem);
-      const k = _.findKey(this.props.EmpItem, function (o) {
+      const k = lodash.findKey(this.props.EmpItem, function (o) {
         if (o.getCode() == res) {
           return o;
         }
       });
       //Data for who logged in :
       if (k > 0) {
-        const objA = _.get(this.props.EmpItem, k);
+        const objA = lodash.get(this.props.EmpItem, k);
         const NameA = objA.FName + " " + objA.LName;
 
         console.log(NameA);
@@ -54,13 +47,13 @@ class HomeScreenforEMP extends Component {
         alert("Incorrect Password!");
       }
     } else if (this.state.resultTxt.length == 6) {
-      const k = _.findKey(this.props.EmpItem, function (o) {
+      const k = lodash.findKey(this.props.EmpItem, function (o) {
         if (o.getAdminCode() == res) {
           return o;
         }
       });
       if (k > 0) {
-        const objA = _.get(this.props.EmpItem, k);
+        const objA = lodash.get(this.props.EmpItem, k);
         const NameA = objA.FName + " " + objA.LName;
 
         console.log(NameA);
@@ -73,7 +66,7 @@ class HomeScreenforEMP extends Component {
       alert("Please check the code and try again!");
     }
   }
-  loadView(vw) {}
+
   render() {
     let rows = [];
     let nums = [
@@ -130,51 +123,7 @@ class HomeScreenforEMP extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  row: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  btnBox: {
-    flexGrow: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  btn: {
-    flex: 20,
-    borderWidth: 2,
-    minWidth: 200,
-    maxHeight: 200,
-    borderRadius: 100,
-    alignContent: "center",
-    justifyContent: "center",
-    marginRight: 80,
-    marginLeft: 80,
-    margin: 20,
-    backgroundColor: "#504B4A",
-  },
-  resultTxtBox: {
-    flex: 0.1,
-    flexDirection: "column",
-  },
-  resultTxt: {
-    fontSize: 30,
-    textAlign: "center",
-  },
-  btnTxt: {
-    fontSize: 35,
 
-    textAlign: "center",
-  },
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-});
 const mapStateToProps = (state) => {
   return {
     EmpItem: state.empItems.EmpList,
