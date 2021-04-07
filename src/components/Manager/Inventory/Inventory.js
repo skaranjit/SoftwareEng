@@ -267,7 +267,8 @@ class Inventory extends Component {
             onPress={() => this.closeModal()}
           />
         </Modal>
-        <FlatList
+        {console.log(this.state.x)}
+        {/* <FlatList
           horizontal={true}
           snapToAlignment={"start"}
           data={data}
@@ -370,7 +371,7 @@ class Inventory extends Component {
               />
             </View>
           )}
-        />
+        /> */}
       </ScrollView>
     );
   }

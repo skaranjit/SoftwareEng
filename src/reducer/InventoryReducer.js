@@ -25,6 +25,7 @@ let initialState = {
     [f.Id]: f,
   },
 };
+console.log(a);
 
 const inventReducer = (state = initialState, action) => {
   switch (action.type) {

@@ -1,7 +1,6 @@
 import { Alert } from "react-native";
 
 export default class InventItem {
-  #used = 0;
   static #id = 1000;
 
   constructor(Name, price, quantity) {
@@ -10,20 +9,18 @@ export default class InventItem {
     this.quantity = quantity;
     InventItem.#id++;
     this.Id = InventItem.#id;
+    this.used = 0;
   }
 
-  getUsed() {
-    return this.#used;
-  }
   useItem(quan) {
     if (quan > this.quantity || quan < -1) {
       alert("Check the number!");
     } else if (quan > -1) {
-      this.#used = quan;
+      this.used = quan;
     }
   }
   CalcRemain() {
-    return this.quantity - this.#used;
+    return this.quantity - this.used;
   }
   totalPrice() {
     return this.price * this.quantity;
