@@ -1,12 +1,12 @@
 "use strict";
 import React, { Component } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, SafeAreaViewBase } from "react-native";
 
 class SettingsBar extends Component {
   render() {
     return (
       <View style={styles.settingsBar}>
-        <Text style={styles.title}>A SHOP</Text>
+        <Text style={styles.title}>The Eats</Text>
       </View>
     );
   }

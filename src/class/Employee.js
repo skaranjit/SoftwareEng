@@ -5,8 +5,8 @@ import Person from "./Person";
 export default class Employee extends Person {
   static #Id = 9100;
   #AdminCode = null;
-  static #CodeList = [1234] 
-  #Code = 1234; //Each employee have a unique code. 
+  static #CodeList = ["1234"];
+  #Code = "1234"; //Each employee have a unique code.
   constructor(FName, LName, PhoneNumber, SSN, Role, Salary) {
     super(FName, LName, PhoneNumber);
     this.SSN = SSN;
@@ -17,21 +17,26 @@ export default class Employee extends Person {
     this.isAdmin = false;
     Employee.#Id++;
     this.Id = Employee.#Id;
+    this.timeSheet = [];
+    this.code = this.#Code;
+    this.Admincode = this.#AdminCode;
   }
   ClockIn() {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
+    const today = new Date();
+    const h = today.getHours();
+    const m = today.getMinutes();
+    const s = today.getSeconds();
     this.clockIn = h + ":" + m + ":" + s;
   }
   ClockOut() {
     if (this.clockIn != 0) {
-      var today = new Date();
-      var h = today.getHours();
-      var m = today.getMinutes();
-      var s = today.getSeconds();
-      this.clockOut = h + ":" + m + ":" + s;
+      const tod = new Date();
+      const H = tod.getHours();
+      const M = tod.getMinutes();
+      const S = tod.getSeconds();
+      this.clockOut = H + ":" + M + ":" + S;
+      this.timeSheet.push([tod.toDateString(), this.clockIn, this.clockOut]);
+      console.log(this.timeSheet);
     } else throw error("Please Login first");
   }
   CalcTotalHours() {
@@ -53,39 +58,35 @@ export default class Employee extends Person {
     return Math.floor(diff / 1000 / 60);
   }
   setAdminCode(x) {
-    if(x>100000){
+    if (String(x).length == 6) {
       this.isAdmin = true;
-    this.#AdminCode = x;
+      this.#AdminCode = x;
+    } else {
+      console.log("Failed!. Not the correct number");
+      alert("To Create Admin Code The number needs to be 6 at leaset");
     }
-    else{
-      console.log("Failed!. Not the correct number")
-      alert("To Create Admin Code The number needs to be 6 at leaset")
-    }
-    
+    this.Admincode = this.#AdminCode;
   }
-  getAdminCode(x){
+  getAdminCode(x) {
     return this.#AdminCode;
   }
-  getCode(x){
+  getCode(x) {
     return this.#Code.toString();
   }
-  setCode(x){
-    if(x>999 & x < 10000){
+  setCode(x) {
+    console.log(x);
 
-    
-    if(Employee.#CodeList.indexOf(x) == -1){
-      this.#Code = x;
-
-    }
-    else if(Employee.#CodeList.indexOf(x) > -1  ){
-      this.#Code = this.Id;
-      alert("Code already in used. So code has been set to :"+this.#Code)
-    }
-    Employee.#CodeList.push(this.#Code);
-      
-    }
-    else {
-      alert("Needs to four digit!")
+    if (String(x).length == 4) {
+      if (Employee.#CodeList.indexOf(x) == -1) {
+        this.#Code = x;
+      } else if (Employee.#CodeList.indexOf(x) > -1) {
+        this.#Code = String(this.Id);
+        alert("Code already in used. So code has been set to :" + this.#Code);
+      }
+      this.code = this.#Code;
+      Employee.#CodeList.push(this.#Code);
+    } else {
+      alert("Needs to four digit!");
     }
   }
   closeOut() {

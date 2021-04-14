@@ -1,4 +1,12 @@
-import { ADD_EMPLOYEE, DELETE_EMPLOYEE, UPDATE_EMPLOYEE } from "./types";
+import {
+  ADD_EMPLOYEE,
+  DELETE_EMPLOYEE,
+  UPDATE_EMPLOYEE,
+  CLOCK_IN,
+  CLOCK_OUT,
+  SET_ADMIN,
+  SET_CODE,
+} from "./types";
 
 export const AddEmp = (empObj) => ({
   type: ADD_EMPLOYEE,
@@ -10,9 +18,26 @@ export const DelEmp = (key) => ({
   key: key,
 });
 
-export const UpdateEmp = (key, obj, text) => ({
+export const Clock_In = (empObj) => ({
+  type: CLOCK_IN,
+  empObj: empObj,
+});
+export const Clock_Out = (empObj) => ({
+  type: CLOCK_OUT,
+  empObj: empObj,
+});
+export const UpdateEmp = (obj) => ({
   type: UPDATE_EMPLOYEE,
-  key: key,
+
   obj: obj,
-  text: text,
+});
+export const Set_Code = (obj, text) => ({
+  type: SET_CODE,
+  obj: obj,
+  code: text,
+});
+export const Set_ADCode = (obj, text) => ({
+  type: SET_ADMIN,
+  obj: obj,
+  code: text,
 });

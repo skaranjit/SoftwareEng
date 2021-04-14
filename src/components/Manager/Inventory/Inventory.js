@@ -92,6 +92,7 @@ class Inventory extends Component {
   ////////////Content to display to users /////////////////////////////////////////////
   render() {
     const data = Object.entries(this.state.x);
+    console.log(this.state.x);
     return (
       <ScrollView
         automaticallyAdjustContentInsets={false}
@@ -267,6 +268,7 @@ class Inventory extends Component {
             onPress={() => this.closeModal()}
           />
         </Modal>
+        {console.log(this.state.x)}
         <FlatList
           horizontal={true}
           snapToAlignment={"start"}
@@ -344,7 +346,7 @@ class Inventory extends Component {
                   marginVertical: 10,
                   width: "6%",
                 }}
-                value={item.item[1].getUsed().toString()}
+                value={item.item[1].used.toString()}
                 onChangeText={(num) =>
                   this.changeText(item.item[0], item.item[1], num, "used")
                 }

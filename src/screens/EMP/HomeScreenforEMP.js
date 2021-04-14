@@ -42,7 +42,7 @@ class HomeScreenforEMP extends Component {
 
         console.log(NameA);
 
-        return this.props.navigation.navigate("Table");
+        return this.props.navigation.navigate("EMPMain", objA);
       } else {
         alert("Incorrect Password!");
       }

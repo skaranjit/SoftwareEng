@@ -34,3 +34,7 @@ export const UPDATE_INVENTORY_ITEM_USED = "UPDATE_INVENTORY_ITEM_USED";
 export const ADD_EMPLOYEE = "ADD_EMPLOYEE";
 export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";
 export const UPDATE_EMPLOYEE = "UPDATE_EMPLOYEE";
+export const CLOCK_IN = "CLOCK_IN";
+export const CLOCK_OUT = "CLOCK_OUT";
+export const SET_CODE = "SET_CODE";
+export const SET_ADMIN = "SET_ADMIN";
