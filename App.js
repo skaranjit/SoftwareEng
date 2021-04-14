@@ -9,11 +9,10 @@ import { PersistGate } from "redux-persist/integration/react";
 export default App = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistedStore}>
-        <RootContainer>
-          <AppContainer></AppContainer>
-        </RootContainer>
-      </PersistGate>
+      {/*<PersistGate loading={null} persistor={persistedStore}>*/}
+      <RootContainer>
+        <AppContainer></AppContainer>
+      </RootContainer>
     </Provider>
   );
 };

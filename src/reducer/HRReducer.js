@@ -2,6 +2,10 @@ import {
   ADD_EMPLOYEE,
   UPDATE_EMPLOYEE,
   DELETE_EMPLOYEE,
+  CLOCK_IN,
+  CLOCK_OUT,
+  SET_ADMIN,
+  SET_CODE,
 } from "./../actions/types";
 import Employee from "../class/Employee";
 import { TouchableWithoutFeedbackComponent } from "react-native";
@@ -28,9 +32,9 @@ b.setCode(2222);
 const c = new Employee(
   "Admin",
   "Admin",
-  "218-790-0592",
+  "123-222-1231",
   "123-12-2345",
-  "Server",
+  "Manager",
   12
 );
 c.setAdminCode(123456);
@@ -88,13 +92,41 @@ const EmpReducer = (state = initialState, action) => {
     case UPDATE_EMPLOYEE:
       return {
         ...state,
-        [action.key]: action.obj,
+        [action.obj.Id]: action.obj,
       };
     case DELETE_EMPLOYEE:
       return {
         EmpList: lodash.omit(state.EmpList, action.key),
       };
-
+    case CLOCK_IN:
+      const Newobj = action.empObj;
+      Newobj.ClockIn();
+      return {
+        ...state,
+        [Newobj.Id]: Newobj,
+      };
+    case CLOCK_OUT:
+      const newObj = action.empObj;
+      newObj.ClockOut();
+      return {
+        ...state,
+        [newObj.Id]: newObj,
+      };
+    case SET_ADMIN:
+      const Obj = action.obj;
+      Obj.setAdminCode(action.code);
+      return {
+        ...state,
+        [Obj.Id]: Obj,
+      };
+    case SET_CODE:
+      const Obj2 = action.obj;
+      Obj2.setCode(action.code);
+      console.log(Obj2);
+      return {
+        ...state,
+        [Obj2.Id]: Obj2,
+      };
     default:
       return state;
   }

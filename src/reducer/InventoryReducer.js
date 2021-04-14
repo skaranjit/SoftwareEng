@@ -8,7 +8,7 @@ import {
 import InventItem from "../class/InventItem";
 import lodash from "lodash";
 //Mock Data
-const a = new InventItem("asda", 12, 2);
+const a = new InventItem("asda", 12, 2, 1);
 const b = new InventItem("Basdas", 24.7, 9);
 const c = new InventItem("zxcz", 24.7, 9);
 const d = new InventItem("qweqz", 24.7, 9);

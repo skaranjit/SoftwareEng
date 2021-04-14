@@ -11,6 +11,7 @@ export const AddInventory = (name, price, quantity) => ({
   name: name,
   price: price,
   quantity: quantity,
+  used: 0,
 });
 
 export const UpdateInventoryItemPrice = (key, obj, price) => ({

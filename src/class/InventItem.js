@@ -3,13 +3,13 @@ import { Alert } from "react-native";
 export default class InventItem {
   static #id = 1000;
 
-  constructor(Name, price, quantity) {
+  constructor(Name, price, quantity, used = 0) {
     this.Name = Name;
     this.price = price;
     this.quantity = quantity;
     InventItem.#id++;
     this.Id = InventItem.#id;
-    this.used = 0;
+    this.used = used;
   }
 
   useItem(quan) {

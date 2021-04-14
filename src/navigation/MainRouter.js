@@ -37,7 +37,7 @@ class MainRouter extends Component {
           <Stack.Screen name="Register" component={RegisterPage} />
           <Stack.Screen name="Payment" component={PaymentPage} />
           <Stack.Screen name="Manager" component={EmpMainNav} />
-          <Stack.Screen name="Table" component={Table} />
+          <Stack.Screen name="EMPMain" component={EmpView} />
         </Stack.Navigator>
       </NavigationContainer>
     );
