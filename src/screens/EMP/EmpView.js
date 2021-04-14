@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
-
+import TableRouter from "./../../components/Table/TableRouter.js";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./../../styles/styles";
 import { Clock_In, Clock_Out } from "./../../actions/HRAction";
@@ -65,7 +65,7 @@ class EmpView extends Component {
             flexDirection: "row",
             justifyContent: "flex-end",
             alignItems: "stretch",
-            maxHeight: 50,
+            minHeight: 1,
 
             borderBottomWidth: 1,
           }}
@@ -75,7 +75,7 @@ class EmpView extends Component {
               borderRadius: 20,
               borderWidth: 2,
               maxWidth: 120,
-              Height: 60,
+              Height: 30,
             }}
             onPress={() => {
               {
@@ -91,7 +91,7 @@ class EmpView extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-        <Text>This is Home Screen </Text>
+        <TableRouter />
       </View>
     );
   }
