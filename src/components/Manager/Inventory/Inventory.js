@@ -268,7 +268,6 @@ class Inventory extends Component {
             onPress={() => this.closeModal()}
           />
         </Modal>
-        {console.log(this.state.x)}
         <FlatList
           horizontal={true}
           snapToAlignment={"start"}
